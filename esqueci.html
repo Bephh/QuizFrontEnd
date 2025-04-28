@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueci a Senha</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="quiz-menu">
+            <span>Quiz ▾</span>
+            <div class="menu-dropdown">
+                <a href="/quiz/juridico">Serviços Jurídicos</a>
+                <a href="/quiz/desenvolvimento-sistemas">Desenvolvimento de Sistemas</a>
+                <a href="/quiz/eletronica">Eletrônica</a>
+                <a href="/quiz/administracao">Administração</a>
+            </div>
+        </div>
+        <div class="user-info">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M6 20c0-3.333 2.667-6 6-6s6 2.667 6 6" />
+            </svg>
+            <div class="user-dropdown">
+                <a href="/login.html" id="user-status">Login</a>
+                <a href="/guest.html" id="user-details">Convidado</a>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="auth-container">
+        <h2>Recuperar Senha</h2>
+        <form id="forgot-form">
+            <div class="form-group">
+                <label for="email-forgot">Digite seu email</label>
+                <input type="email" id="email-forgot" required />
+            </div>
+            <button type="submit" class="btn">Enviar email</button>
+        </form>
+        <div class="links">
+            <a href="login.html">Voltar ao login</a>
+        </div>
+</body>
+
+</html>
