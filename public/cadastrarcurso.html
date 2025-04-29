@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Cadastrar Curso e Disciplinas</title>
-  <link rel="stylesheet" href="./CSS/styleCadastro.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -18,7 +18,10 @@
     </div>
 
     <div class="user-info">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M6 20c0-3.333 2.667-6 6-6s6 2.667 6 6" />
+      </svg>
         <circle cx="12" cy="7" r="4" />
         <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
       </svg>
@@ -95,13 +98,13 @@
         return;
       }
 
-      cursoAtual = nomeCurso;
+      // cursoAtual = nomeCurso;
 
    
       document.getElementById('disciplinaContainer').style.display = 'block';
 
     
-      atualizarTabela();
+      // atualizarTabela();
 
  
       document.getElementById('cursoForm').querySelector('button').disabled = true;
@@ -111,7 +114,7 @@
       event.preventDefault();
 
       const nomeDisciplina = document.getElementById('nomeDisciplina').value.trim();
-
+      cursoAtual = document.getElementById('nomeCurso').value.trim();
       if (!nomeDisciplina) {
         alert('Informe o nome da disciplina.');
         return;
