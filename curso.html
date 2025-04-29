@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Cursos</h1>
+
+        <!-- Tabela de cursos -->
+        <table id="tabela-cursos">
+            <thead>
+                <tr>
+                    <th>Nome do Curso</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Curso A</td>
+                    <td>Descrição do curso A</td>
+                    <td>
+                        <button class="editar">Editar</button>
+                        <button class="excluir">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Curso B</td>
+                    <td>Descrição do curso B</td>
+                    <td>
+                        <button class="editar">Editar</button>
+                        <button class="excluir">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Botão de voltar -->
+        <div class="voltar">
+            <button id="btn-voltar">Voltar</button>
+        </div>
+    </div>
+
+    <script>
+        let tabela = document.getElementById('tabela-cursos').querySelector('tbody');
+        let ultimaAcoes = []; // Pilha para armazenar ações (edições e exclusões)
+
+        // Função para armazenar o estado da tabela antes de qualquer modificação
+        function salvarEstadoTabela() {
+            ultimaAcoes.push(tabela.innerHTML); // Armazena o conteúdo da tabela
+        }
+
+        // Função para desfazer a última ação
+        function desfazerUltimaAcao() {
+            if (ultimaAcoes.length > 0) {
+                tabela.innerHTML = ultimaAcoes.pop(); // Restaura o estado da tabela
+                adicionarEventos(); // Reaplica os eventos às novas linhas
+            }
+        }
+
+        // Função de adicionar os eventos de editar e excluir para cada linha
+        function adicionarEventos() {
+            document.querySelectorAll('#tabela-cursos tbody tr').forEach(linha => {
+                linha.querySelector('.excluir').addEventListener('click', function () {
+                    if (confirm('Tem certeza que deseja excluir este curso?')) {
+                        salvarEstadoTabela(); // Salva o estado antes da exclusão
+                        linha.remove(); // Exclui a linha
+                    }
+                });
+
+                linha.querySelector('.editar').addEventListener('click', function () {
+                    const nomeCelula = linha.children[0];
+                    const descricaoCelula = linha.children[1];
+
+                    const novoNome = prompt('Editar nome do curso:', nomeCelula.textContent);
+                    const novaDescricao = prompt('Editar descrição:', descricaoCelula.textContent);
+
+                    if (novoNome !== null && novaDescricao !== null) {
+                        salvarEstadoTabela(); // Salva o estado antes da edição
+                        nomeCelula.textContent = novoNome;
+                        descricaoCelula.textContent = novaDescricao;
+                    }
+                });
+            });
+        }
+
+        // Adiciona eventos às linhas existentes
+        adicionarEventos();
+
+        // Função do botão "Voltar" para desfazer a última ação
+        document.getElementById('btn-voltar').addEventListener('click', desfazerUltimaAcao);
+
+    </script>
+</body>
+</html>
