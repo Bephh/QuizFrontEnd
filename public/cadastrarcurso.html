@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastrar Curso e Disciplinas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="quiz-menu">
+      <span>Menu</span>
+      <div class="menu-dropdown">
+        <a href="#">Home</a>
+        <a href="#">Cursos</a>
+        <a href="#">Sair</a>
+      </div>
+    </div>
+
+    <div class="user-info">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <circle cx="12" cy="7" r="4" />
+        <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
+      </svg>
+      <div class="user-dropdown">
+        <a href="#">Perfil</a>
+        <a href="#">Configurações</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="cursoContainer">
+    <h2>Cadastrar Curso</h2>
+    <form id="cursoForm">
+      <div class="form-group">
+        <label for="nomeCurso">Nome do Curso</label>
+        <input type="text" id="nomeCurso" name="nomeCurso" required>
+      </div>
+      <button type="submit" class="btn">Cadastrar Curso</button>
+    </form>
+  </div>
+
+
+  <div class="container" id="disciplinaContainer" style="display: none; margin-top: 20px;">
+    <h2>Adicionar Disciplinas</h2>
+
+    <form id="disciplinaForm">
+      <div class="form-group">
+        <label for="nomeDisciplina">Nome da Disciplina</label>
+        <input type="text" id="nomeDisciplina" name="nomeDisciplina" required>
+      </div>
+      <button type="submit" class="btn">Adicionar Disciplina</button>
+    </form>
+
+    <div style="margin-top: 1.5rem;">
+      <h2 style="font-size: 1.3rem;">Curso e Disciplinas</h2>
+      <table id="tabelaCursoDisciplinas" style="width: 100%; margin-top: 10px; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 12px;">
+        <thead>
+          <tr style="background: #2a2340;">
+            <th style="padding: 8px; color: #32cd32;">Curso</th>
+            <th style="padding: 8px; color: #32cd32;">Disciplina</th>
+          </tr>
+        </thead>
+        <tbody>
+       
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    Cadastrar Curso e Disciplina
+  </footer>
+
+
+  <script>
+    let cursoAtual = '';
+    let disciplinas = [];
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const cursoForm = document.getElementById('cursoForm');
+      const disciplinaForm = document.getElementById('disciplinaForm');
+
+      cursoForm.addEventListener('submit', cadastrarCurso);
+      disciplinaForm.addEventListener('submit', adicionarDisciplina);
+    });
+
+    function cadastrarCurso(event) {
+      event.preventDefault();
+
+      const nomeCurso = document.getElementById('nomeCurso').value.trim();
+
+      if (!nomeCurso) {
+        alert('Preencha o nome do curso.');
+        return;
+      }
+
+      cursoAtual = nomeCurso;
+
+   
+      document.getElementById('disciplinaContainer').style.display = 'block';
+
+    
+      atualizarTabela();
+
+ 
+      document.getElementById('cursoForm').querySelector('button').disabled = true;
+    }
+
+    function adicionarDisciplina(event) {
+      event.preventDefault();
+
+      const nomeDisciplina = document.getElementById('nomeDisciplina').value.trim();
+
+      if (!nomeDisciplina) {
+        alert('Informe o nome da disciplina.');
+        return;
+      }
+
+      disciplinas.push(nomeDisciplina);
+      document.getElementById('nomeDisciplina').value = ''; 
+
+      atualizarTabela();
+    }
+
+    function atualizarTabela() {
+      const tbody = document.querySelector('#tabelaCursoDisciplinas tbody');
+      tbody.innerHTML = '';
+
+     
+      if (cursoAtual) {
+        disciplinas.forEach((disciplina) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="padding: 8px;">${cursoAtual}</td>
+            <td style="padding: 8px;">${disciplina}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
