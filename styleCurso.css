@@ -1,0 +1,301 @@
+  /* Geral */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background: #201b2c;
+    color: #fff;
+    padding-top: 50px;
+    margin-bottom: 80px;
+  }
+  
+  /* Navbar */
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    background: #2a2340;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+  /* Ajustar posição do menu dropdown */
+  .quiz-menu {
+    position: relative;
+  }
+  
+  .quiz-menu span {
+    color: #32cd32;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 8px;
+  }
+  
+  .menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #2a2340;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100vw;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  .quiz-menu:hover .menu-dropdown,
+  .menu-dropdown:hover {
+    display: block;
+  }
+  
+  .menu-dropdown a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    margin: 6px 0;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .menu-dropdown a:hover {
+    background: rgba(50, 205, 50, 0.1);
+    color: #fff;
+  }
+  
+  /* Ajustes na posição dos ícones do usuário */
+  .user-info {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+  
+  .user-info svg {
+    width: 100%;
+    height: 100%;
+    stroke: #32cd32;
+    fill: none;
+    transition: stroke 0.3s;
+  }
+  
+  .user-info:hover svg {
+    stroke: #fff;
+  }
+  
+  .user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #2a2340;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100vw;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  .user-info:hover .user-dropdown,
+  .user-dropdown:hover {
+    display: block;
+  }
+  
+  .user-dropdown a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    margin: 6px 0;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .user-dropdown a:hover {
+    background: rgba(50, 205, 50, 0.1);
+    color: #fff;
+  }
+  
+  /* Container */
+  .container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 400px;
+    margin: calc(50px + 1rem) auto 0;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffffcc;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #ffffffcc;
+    font-size: 0.95rem;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.65rem;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: #fff;
+    color: #000;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #32cd32;
+  }
+  
+  /* Botão de envio do formulário */
+  .btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #32cd32, #28a428);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  /* Ajuste do botão no formulário */
+  .btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(50, 205, 50, 0.5);
+  }
+  
+  /* Links e mensagens de erro */
+  .links {
+    text-align: center;
+    margin-top: 0.75rem;
+  }
+  
+  .links a {
+    color: #32cd32;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  
+  .links a:hover {
+    color: #28a428;
+  }
+  
+  .error {
+    color: #ff4d4f;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    display: block;
+  }
+  
+  /* Estilo de rodapé */
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background: #2a2340;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    z-index: 999;
+  }
+  
+  
+  /* Estilos para dispositivos maiores */
+  @media (min-width: 600px) {
+    body {
+      padding-top: 60px;
+    }
+    .navbar {
+      height: 60px;
+      padding: 0 20px;
+    }
+    .menu-dropdown,
+    .user-dropdown {
+      width: 200px;
+    }
+    .container {
+      max-width: 320px;
+      margin-top: 4rem;
+      padding: 1.5rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+    }
+  }
+  
+  /* Para telas muito grandes */
+  @media (min-width: 992px) {
+    .container {
+      max-width: 500px;
+    }
+    label,
+    .links a {
+      font-size: 1rem;
+    }
+    .btn {
+      font-size: 1.1rem;
+    }
+  }
+  /* Ajustar a posição dos botões de Ação */
+#tabela-cursos td {
+    text-align: left; /* Alinha os dados das células à esquerda por padrão */
+}
+
+#tabela-cursos td:last-child {
+    text-align: right; /* Alinha a última coluna (Ações) à direita */
+}
+
+button {
+        width: 39%; /* O botão ocupará toda a largura do seu contêiner */
+        padding: 0.25rem;
+        background: linear-gradient(135deg, #32cd32, #28a428);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin-left: 10px;
+        background-position: center;
+    
+}
+
+#btn-voltar {
+ text-align: left;
+ width: 10%
+}
