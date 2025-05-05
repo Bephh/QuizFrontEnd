@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Cadastrar Curso e Disciplinas</title>
-  <link rel="stylesheet" href="./CSS/style.css">
+  <link rel="stylesheet" href="/public/CSS/styleCadastro.css">
 </head>
 <body>
 
@@ -40,11 +40,17 @@
     </form>
   </div>
 
-
   <div class="container" id="disciplinaContainer" style="display: none; margin-top: 20px;">
     <h2>Adicionar Disciplinas</h2>
 
-    <form id="disciplinaForm">
+    <div>
+      <label for="cursoSelecionado">Selecione o Curso:</label>
+      <select id="cursoSelecionado" required>
+        <option value="">Escolha um curso</option>
+      </select>
+    </div>
+
+    <form id="disciplinaForm" style="margin-top: 10px;">
       <div class="form-group">
         <label for="nomeDisciplina">Nome da Disciplina</label>
         <input type="text" id="nomeDisciplina" name="nomeDisciplina" required>
@@ -62,7 +68,6 @@
           </tr>
         </thead>
         <tbody>
-       
         </tbody>
       </table>
     </div>
@@ -72,17 +77,13 @@
     Cadastrar Curso e Disciplina
   </footer>
 
-
   <script>
+    let cursos = {}; // { "Curso A": ["Disc A1", "Disc A2"], "Curso B": ["Disc B1"] }
     let cursoAtual = '';
-    let disciplinas = [];
 
     document.addEventListener('DOMContentLoaded', function () {
-      const cursoForm = document.getElementById('cursoForm');
-      const disciplinaForm = document.getElementById('disciplinaForm');
-
-      cursoForm.addEventListener('submit', cadastrarCurso);
-      disciplinaForm.addEventListener('submit', adicionarDisciplina);
+      document.getElementById('cursoForm').addEventListener('submit', cadastrarCurso);
+      document.getElementById('disciplinaForm').addEventListener('submit', adicionarDisciplina);
     });
 
     function cadastrarCurso(event) {
@@ -95,16 +96,26 @@
         return;
       }
 
+     
+      if (!cursos[nomeCurso]) {
+        cursos[nomeCurso] = [];
+      }
+
       cursoAtual = nomeCurso;
 
-   
+      
+      const cursoSelecionado = document.getElementById('cursoSelecionado');
+      const option = document.createElement('option');
+      option.value = nomeCurso;
+      option.textContent = nomeCurso;
+      cursoSelecionado.appendChild(option);
+
       document.getElementById('disciplinaContainer').style.display = 'block';
 
-    
-      atualizarTabela();
+  
+      document.getElementById('cursoForm').reset();
 
- 
-      document.getElementById('cursoForm').querySelector('button').disabled = true;
+      atualizarTabela();
     }
 
     function adicionarDisciplina(event) {
@@ -117,7 +128,10 @@
         return;
       }
 
-      disciplinas.push(nomeDisciplina);
+     
+      cursos[cursoAtual].push(nomeDisciplina);
+
+     
       document.getElementById('nomeDisciplina').value = ''; 
 
       atualizarTabela();
@@ -128,11 +142,11 @@
       tbody.innerHTML = '';
 
      
-      if (cursoAtual) {
-        disciplinas.forEach((disciplina) => {
+      for (const curso in cursos) {
+        cursos[curso].forEach((disciplina) => {
           const tr = document.createElement('tr');
           tr.innerHTML = `
-            <td style="padding: 8px;">${cursoAtual}</td>
+            <td style="padding: 8px;">${curso}</td>
             <td style="padding: 8px;">${disciplina}</td>
           `;
           tbody.appendChild(tr);
