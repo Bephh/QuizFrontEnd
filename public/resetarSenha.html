@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esqueci a Senha</title>
-    <link rel="stylesheet" href="./CSS/style.css" />
+    <title>Recuperação de senha</title>
+    <link rel="stylesheet" href="./CSS/style.css">
 </head>
-
 <body>
     <div class="navbar">
         <div class="quiz-menu">
@@ -34,10 +32,16 @@
         <h2>Recuperar Senha</h2>
         <form id="forgot-form">
             <div class="form-group">
-                <label for="email-forgot">Digite seu email</label>
-                <input type="email" id="email-forgot" required  />
+                <label for="old-pass">Insira sua senha antiga:</label>
+                <input id="new-pass" required  />
+
+                <label for="new-pass">Insira a nova senha:</label>
+                <input id="new-pass" required  />
+
+                <label for="rep-pass">Repita a nova Senha:</label>
+                <input id="rep-pass" required  />
             </div>
-            <button type="submit" class="btn" id="btnRoute" onclick="enviarEmail()">Enviar email</button>
+            <button type="submit" class="btn" id="btnRoute" onclick="TrocarSenha()">Trocar Senha</button>
         </form>
         <div class="links">
             <a href="./login.html">Voltar ao login</a>
@@ -46,28 +50,19 @@
 
 <script>
 
-    function validarEmail(email){
-        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return regex.test(email); 
-    }
-
     document.getElementById("forgot-form").addEventListener("submit", function(event) {
         event.preventDefault();
 
-        const emailForgot = document.getElementById('email-forgot').value;
+        const senha = document.getElementById('new-pass').value;
+        const repSenha = document.getElementById('rep-pass').value;
 
-        if(validarEmail(emailForgot)) {
-            alert("Token enviado para o seu email")
-            
-            // Troca de página
-            window.location.href = "./esqueciSenha.html";
+        if(senha != repSenha) {
+            alert("as senhas não coincidem");
         }
-        else {
-            alert("E-mail inválido")
+        else if(senha == repSenha) {
+            alert("as senhas são iguais");
         }
-    }) 
-    
+    });
 
 </script>
-
 </html>
