@@ -32,10 +32,13 @@
         <h2>Recuperar Senha</h2>
         <form id="forgot-form">
             <div class="form-group">
+                <label for="token-pass">Insira o token:</label>
+                <input id="new-pass" required  />
+
                 <label for="new-pass">Insira a nova senha:</label>
                 <input id="new-pass" required  />
 
-                <label for="rep-pass">Insira a nova senha:</label>
+                <label for="rep-pass">Repita a nova Senha:</label>
                 <input id="rep-pass" required  />
             </div>
             <button type="submit" class="btn" id="btnRoute" onclick="TrocarSenha()">Trocar Senha</button>
