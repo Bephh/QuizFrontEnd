@@ -1,159 +1,78 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Cadastrar Curso e Disciplinas</title>
-  <link rel="stylesheet" href="/public/CSS/styleCadastro.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cursos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div class="navbar">
-    <div class="quiz-menu">
-      <span>Menu</span>
-      <div class="menu-dropdown">
-        <a href="#">Home</a>
-        <a href="#">Cursos</a>
-        <a href="#">Sair</a>
-      </div>
+    <div class="container">
+        <h2>Cadastro de Cursos</h2>
+        <div id="courses-container">
+           
+        </div>
+        <button id="add-course-btn" class="btn">Adicionar Curso</button>
     </div>
 
-    <div class="user-info">
-      <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="8" r="4" />
-        <path d="M6 20c0-3.333 2.667-6 6-6s6 2.667 6 6" />
-      </svg>
-      <div class="user-dropdown">
-        <a href="#">Perfil</a>
-        <a href="#">Configurações</a>
-      </div>
-    </div>
-  </div>
+    <script>
+        document.getElementById("add-course-btn").addEventListener("click", addCourse);
 
-  <div class="container" id="cursoContainer">
-    <h2>Cadastrar Curso</h2>
-    <form id="cursoForm">
-      <div class="form-group">
-        <label for="nomeCurso">Nome do Curso</label>
-        <input type="text" id="nomeCurso" name="nomeCurso" required>
-      </div>
-      <button type="submit" class="btn">Cadastrar Curso</button>
-    </form>
-  </div>
+        function addCourse() {
+            const courseName = prompt("Digite o nome do curso:");
+            if (!courseName) return;
 
-  <div class="container" id="disciplinaContainer" style="display: none; margin-top: 20px;">
-    <h2>Adicionar Disciplinas</h2>
+            const courseDiv = document.createElement("div");
+            courseDiv.classList.add("curso-item");
 
-    <div>
-      <label for="cursoSelecionado">Selecione o Curso:</label>
-      <select id="cursoSelecionado" required>
-        <option value="">Escolha um curso</option>
-      </select>
-    </div>
+            const courseTitle = document.createElement("h3");
+            courseTitle.textContent = courseName;
+            courseDiv.appendChild(courseTitle);
 
-    <form id="disciplinaForm" style="margin-top: 10px;">
-      <div class="form-group">
-        <label for="nomeDisciplina">Nome da Disciplina</label>
-        <input type="text" id="nomeDisciplina" name="nomeDisciplina" required>
-      </div>
-      <button type="submit" class="btn">Adicionar Disciplina</button>
-    </form>
+            const addDisciplineButton = document.createElement("button");
+            addDisciplineButton.textContent = "Adicionar Disciplina";
+            addDisciplineButton.classList.add("btn-disciplina");
+            courseDiv.appendChild(addDisciplineButton);
 
-    <div style="margin-top: 1.5rem;">
-      <h2 style="font-size: 1.3rem;">Curso e Disciplinas</h2>
-      <table id="tabelaCursoDisciplinas" style="width: 100%; margin-top: 10px; border-collapse: collapse; background: rgba(255,255,255,0.05); border-radius: 12px;">
-        <thead>
-          <tr style="background: #2a2340;">
-            <th style="padding: 8px; color: #32cd32;">Curso</th>
-            <th style="padding: 8px; color: #32cd32;">Disciplina</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-  </div>
+            const removeCourseButton = document.createElement("button");
+            removeCourseButton.textContent = "Remover Curso";
+            removeCourseButton.classList.add("btn");
+            courseDiv.appendChild(removeCourseButton);
 
-  <footer>
-    Cadastrar Curso e Disciplina
-  </footer>
+            const disciplineList = document.createElement("div");
+            disciplineList.classList.add("discipline-list");
+            courseDiv.appendChild(disciplineList);
 
-  <script>
-    let cursos = {}; // { "Curso A": ["Disc A1", "Disc A2"], "Curso B": ["Disc B1"] }
-    let cursoAtual = '';
+            addDisciplineButton.addEventListener("click", function() {
+                addDiscipline(disciplineList);
+            });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('cursoForm').addEventListener('submit', cadastrarCurso);
-      document.getElementById('disciplinaForm').addEventListener('submit', adicionarDisciplina);
-    });
+            removeCourseButton.addEventListener("click", function() {
+                courseDiv.remove();
+            });
 
-    function cadastrarCurso(event) {
-      event.preventDefault();
+            document.getElementById("courses-container").appendChild(courseDiv);
+        }
 
-      const nomeCurso = document.getElementById('nomeCurso').value.trim();
+        function addDiscipline(disciplineList) {
+            const disciplineName = prompt("Digite o nome da disciplina:");
+            if (!disciplineName) return;
 
-      if (!nomeCurso) {
-        alert('Preencha o nome do curso.');
-        return;
-      }
+            const disciplineDiv = document.createElement("div");
+            disciplineDiv.classList.add("discipline-item");
+            disciplineDiv.textContent = disciplineName;
 
-     
-      if (!cursos[nomeCurso]) {
-        cursos[nomeCurso] = [];
-      }
+            const removeDisciplineButton = document.createElement("button");
+            removeDisciplineButton.textContent = "Remover Disciplina";
+            removeDisciplineButton.classList.add("btn");
+            disciplineDiv.appendChild(removeDisciplineButton);
 
-      cursoAtual = nomeCurso;
+            removeDisciplineButton.addEventListener("click", function() {
+                disciplineDiv.remove();
+            });
 
-      
-      const cursoSelecionado = document.getElementById('cursoSelecionado');
-      const option = document.createElement('option');
-      option.value = nomeCurso;
-      option.textContent = nomeCurso;
-      cursoSelecionado.appendChild(option);
-
-      document.getElementById('disciplinaContainer').style.display = 'block';
-
-  
-      document.getElementById('cursoForm').reset();
-
-      atualizarTabela();
-    }
-
-    function adicionarDisciplina(event) {
-      event.preventDefault();
-
-      const nomeDisciplina = document.getElementById('nomeDisciplina').value.trim();
-
-      if (!nomeDisciplina) {
-        alert('Informe o nome da disciplina.');
-        return;
-      }
-
-     
-      cursos[cursoAtual].push(nomeDisciplina);
-
-     
-      document.getElementById('nomeDisciplina').value = ''; 
-
-      atualizarTabela();
-    }
-
-    function atualizarTabela() {
-      const tbody = document.querySelector('#tabelaCursoDisciplinas tbody');
-      tbody.innerHTML = '';
-
-     
-      for (const curso in cursos) {
-        cursos[curso].forEach((disciplina) => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td style="padding: 8px;">${curso}</td>
-            <td style="padding: 8px;">${disciplina}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-      }
-    }
-  </script>
-
+            disciplineList.appendChild(disciplineDiv);
+        }
+    </script>
 </body>
 </html>
